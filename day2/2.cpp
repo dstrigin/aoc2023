@@ -4,8 +4,6 @@
 #include <sstream>
 
 int main(){
-    
-    int r_max = 12, g_max = 13, b_max = 14;
 
     int res = 0;
 
@@ -14,9 +12,9 @@ int main(){
 
     while (std::getline(f, line))
     {
-        int id = 0, r = 0, g = 0, b = 0;
-        bool possible = true;
-
+        int r_max = 0, g_max = 0, b_max = 0;
+        int r = 0, g = 0, b = 0;
+    
         std::string token;
 
         std::istringstream iss(line);
@@ -26,7 +24,6 @@ int main(){
             if (token == "Game")
             {
                 iss >> token;
-                id = stoi(token);
                 continue;
             }
 
@@ -36,18 +33,24 @@ int main(){
             switch (token[0])
             {
             case 'r':
-                if (val > r_max) possible = false;
+                r = val;
+                if (r > r_max)
+                    r_max = r;
                 break;
             case 'g':
-                if (val > g_max) possible = false;
+                g = val;
+                if (g > g_max)
+                    g_max = g;
                 break;
             case 'b':
-                if (val > b_max) possible = false;
+                b = val;
+                if (b > b_max)
+                    b_max = b;
                 break;
             }
         }
-
-        if (possible) res += id;
+        
+        res += r_max * g_max * b_max;
 
     }
 
